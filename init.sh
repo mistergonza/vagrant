@@ -1,5 +1,6 @@
 # #!/bin/bash
 mysql_root_pwd=1234
+php_version=7.1
 export DEBIAN_FRONTEND=noninteractive
 export COMPOSER_ALLOW_SUPERUSER=1
 #export ZEPHIRDIR=/usr/share/zephir
@@ -9,10 +10,10 @@ export LC_ALL=en_US.UTF-8
 
 echo "============= INIT ============="
 
+
 #
-# #
-# # Add Swap
-# #
+# Add Swap
+#
 sudo dd if=/dev/zero of=/swapspace bs=1M count=2048
 sudo mkswap /swapspace
 sudo swapon /swapspace
@@ -51,38 +52,50 @@ sudo apt-get install -y nginx
 # Base PHP
 #
 sudo apt-get install -y --no-install-recommends \
-  php5.6 \
-  php5.6-apcu \
-  php5.6-bcmath \
-  php5.6-bz2 \
-  php5.6-cli \
-  php5.6-curl \
-  php5.6-dba \
-  php5.6-dev \
-  php5.6-dom \
-  php5.6-gd \
+  php$php_version \
+  php$php_version-apcu \
+  php$php_version-bcmath \
+  php$php_version-bz2 \
+  php$php_version-cli \
+  php$php_version-curl \
+  php$php_version-dba \
+  php$php_version-dev \
+  php$php_version-dom \
+  php$php_version-gd \
   php-pear \
-  php5.6-igbinary \
-  php5.6-intl \
-  php5.6-imagick \
-  php5.6-imap \
-  php5.6-mbstring \
-  php5.6-mcrypt \
-  php5.6-memcached \
-  php5.6-memcache \
-  php5.6-mongo \
-  php5.6-mongodb \
-  php5.6-mysqli \
-  php5.6-pgsql \
-  php5.6-soap \
-  php5.6-xdebug \
-  php5.6-xsl \
-  php5.6-xml \
-  php5.6-zip
+  php$php_version-igbinary \
+  php$php_version-intl \
+  php$php_version-imagick \
+  php$php_version-imap \
+  php$php_version-mbstring \
+  php$php_version-mcrypt \
+  php$php_version-memcached \
+  php$php_version-memcache \
+  php$php_version-mongo \
+  php$php_version-mongodb \
+  php$php_version-mysqli \
+  php$php_version-pdo \
+  php$php_version-pgsql \
+  php$php_version-soap \
+  php$php_version-xdebug \
+  php$php_version-xsl \
+  php$php_version-xml \
+  php$php_version-zip
 
 #
 # MySQL
 #
-debconf-set-selections <<< "mysql-server-5.6 mysql-server/root_password password ${mysql_root_pwd}"
-debconf-set-selections <<< "mysql-server-5.6 mysql-server/root_password_again password ${mysql_root_pwd}"
-apt-get -y install mysql-server-5.6
+debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password password ${mysql_root_pwd}"
+debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password_again password ${mysql_root_pwd}"
+apt-get -y install mysql-server-5.7
+
+#
+# NodeJS
+#
+sudo apt-get -y install nodejs
+sudo apt-get -y install npm
+
+#
+# Bower
+#
+sudo npm install -g bower
