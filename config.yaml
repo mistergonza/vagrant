@@ -1,7 +1,7 @@
 vm:
     memory: 768
     cpus: 1
-    ip: '192.168.100.101'
+    ip: '192.168.100.111'
     hostname: 'test.local'
 php:
     version: '7.0'

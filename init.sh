@@ -54,6 +54,7 @@ sudo apt-get install -y nginx
 #
 sudo apt-get install -y --no-install-recommends \
   php${VAGRANT_PHP_VERSION} \
+  php${VAGRANT_PHP_VERSION}-fpm \
   php${VAGRANT_PHP_VERSION}-apcu \
   php${VAGRANT_PHP_VERSION}-bcmath \
   php${VAGRANT_PHP_VERSION}-bz2 \

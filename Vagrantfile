@@ -14,7 +14,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network :private_network, ip: configValues['vm']['ip'], auto_config: false
 
-  config.vm.network :forwarded_port, host: 8888, guest: 80
+  config.vm.provision "shell",
+    run: "always",
+    inline: "ifconfig enp0s8 #{configValues['vm']['ip']} netmask 255.255.255.0 up"
+
+  config.vm.network :forwarded_port, host: 8080, guest: 80
+  config.vm.network :forwarded_port, host: 3306, guest: 3306
 
   config.vm.provider :virtualbox do |vb|
     vb.customize [
@@ -50,4 +55,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       init.args = ["#{configValues['php']['version']}", "#{configValues['mysql']['root_password']}"]
       #init.run = "once"
   end
+
+  config.vm.provision "shell", inline: "sudo usermod -a -G www-data ubuntu"
+  config.vm.provision "shell", inline: "cp /vagrant/host.conf /etc/nginx/sites-enabled/host.conf"
+  config.vm.provision "shell", inline: "sudo service nginx restart"
 end
