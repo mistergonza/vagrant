@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/xenial64"
   config.vm.hostname = configValues['vm']['hostname']
 
-  config.vm.network :private_network, ip: "192.168.100.78", auto_config: false
+  config.vm.network :private_network, ip: configValues['vm']['ip'], auto_config: false
 
   config.vm.network :forwarded_port, host: 8888, guest: 80
 
@@ -44,5 +44,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Provisioning Scripts
   # --------------------
-  config.vm.provision "shell", path: "init.sh"
+
+  config.vm.provision :shell, run: 'once' do |init|
+      init.path = 'init.sh'
+      init.args = ["#{configValues['php']['version']}", "#{configValues['mysql']['root_password']}"]
+      #init.run = "once"
+  end
 end

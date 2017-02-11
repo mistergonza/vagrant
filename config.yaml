@@ -6,4 +6,4 @@ vm:
 php:
     version: '7.0'
 mysql:
-    root_password: ''
+    root_password: '1234'

@@ -1,12 +1,13 @@
 # #!/bin/bash
-mysql_root_pwd=1234
-php_version=7.1
-export DEBIAN_FRONTEND=noninteractive
-export COMPOSER_ALLOW_SUPERUSER=1
-#export ZEPHIRDIR=/usr/share/zephir
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+# export DEBIAN_FRONTEND=noninteractive
+# export COMPOSER_ALLOW_SUPERUSER=1
+# #export ZEPHIRDIR=/usr/share/zephir
+# export LANGUAGE=en_US.UTF-8
+# export LANG=en_US.UTF-8
+# export LC_ALL=en_US.UTF-8
+
+VAGRANT_PHP_VERSION=$(echo "$1")
+VAGRANT_MYSQL_ROOT_PWD=$(echo "$2")
 
 echo "============= INIT ============="
 
@@ -52,41 +53,41 @@ sudo apt-get install -y nginx
 # Base PHP
 #
 sudo apt-get install -y --no-install-recommends \
-  php$php_version \
-  php$php_version-apcu \
-  php$php_version-bcmath \
-  php$php_version-bz2 \
-  php$php_version-cli \
-  php$php_version-curl \
-  php$php_version-dba \
-  php$php_version-dev \
-  php$php_version-dom \
-  php$php_version-gd \
+  php${VAGRANT_PHP_VERSION} \
+  php${VAGRANT_PHP_VERSION}-apcu \
+  php${VAGRANT_PHP_VERSION}-bcmath \
+  php${VAGRANT_PHP_VERSION}-bz2 \
+  php${VAGRANT_PHP_VERSION}-cli \
+  php${VAGRANT_PHP_VERSION}-curl \
+  php${VAGRANT_PHP_VERSION}-dba \
+  php${VAGRANT_PHP_VERSION}-dev \
+  php${VAGRANT_PHP_VERSION}-dom \
+  php${VAGRANT_PHP_VERSION}-gd \
   php-pear \
-  php$php_version-igbinary \
-  php$php_version-intl \
-  php$php_version-imagick \
-  php$php_version-imap \
-  php$php_version-mbstring \
-  php$php_version-mcrypt \
-  php$php_version-memcached \
-  php$php_version-memcache \
-  php$php_version-mongo \
-  php$php_version-mongodb \
-  php$php_version-mysqli \
-  php$php_version-pdo \
-  php$php_version-pgsql \
-  php$php_version-soap \
-  php$php_version-xdebug \
-  php$php_version-xsl \
-  php$php_version-xml \
-  php$php_version-zip
+  php${VAGRANT_PHP_VERSION}-igbinary \
+  php${VAGRANT_PHP_VERSION}-intl \
+  php${VAGRANT_PHP_VERSION}-imagick \
+  php${VAGRANT_PHP_VERSION}-imap \
+  php${VAGRANT_PHP_VERSION}-mbstring \
+  php${VAGRANT_PHP_VERSION}-mcrypt \
+  php${VAGRANT_PHP_VERSION}-memcached \
+  php${VAGRANT_PHP_VERSION}-memcache \
+  php${VAGRANT_PHP_VERSION}-mongo \
+  php${VAGRANT_PHP_VERSION}-mongodb \
+  php${VAGRANT_PHP_VERSION}-mysqli \
+  php${VAGRANT_PHP_VERSION}-pdo \
+  php${VAGRANT_PHP_VERSION}-pgsql \
+  php${VAGRANT_PHP_VERSION}-soap \
+  php${VAGRANT_PHP_VERSION}-xdebug \
+  php${VAGRANT_PHP_VERSION}-xsl \
+  php${VAGRANT_PHP_VERSION}-xml \
+  php${VAGRANT_PHP_VERSION}-zip
 
 #
 # MySQL
 #
-debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password password ${mysql_root_pwd}"
-debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password_again password ${mysql_root_pwd}"
+debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password password ${VAGRANT_MYSQL_ROOT_PWD}"
+debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password_again password ${VAGRANT_MYSQL_ROOT_PWD}"
 apt-get -y install mysql-server-5.7
 
 #
