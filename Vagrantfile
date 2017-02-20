@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Synced Folders
   # --------------------
   config.vm.synced_folder ".", "/vagrant/", :mount_options => [ "dmode=775", "fmode=664" ]
-  config.vm.synced_folder "htdocs", "/home/ubuntu/htdocs/", :mount_options => [ "dmode=775", "fmode=664" ]
+  config.vm.synced_folder configValues['project_dir'], "/home/ubuntu/htdocs/", :mount_options => [ "dmode=775", "fmode=664" ]
 
   # If true, agent forwarding over SSH connections is enabled
   # --------------------
