@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Synced Folders
   # --------------------
   config.vm.synced_folder ".", "/vagrant/", :mount_options => [ "dmode=775", "fmode=664" ]
-  config.vm.synced_folder configValues['project_dir'], "/home/ubuntu/htdocs/", :mount_options => [ "dmode=775", "fmode=664" ]
+  config.vm.synced_folder configValues['project_dir'], "/home/ubuntu/projects/", :mount_options => [ "dmode=775", "fmode=664" ]
 
   # If true, agent forwarding over SSH connections is enabled
   # --------------------
@@ -57,6 +57,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell", inline: "sudo usermod -a -G www-data ubuntu"
-  config.vm.provision "shell", inline: "cp /vagrant/host.conf /etc/nginx/sites-enabled/host.conf"
+  config.vm.provision "shell", path: "load.sh"
   config.vm.provision "shell", inline: "sudo service nginx restart"
 end

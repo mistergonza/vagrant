@@ -7,4 +7,4 @@ php:
     version: '7.0'
 mysql:
     root_password: '1234'
-project_dir: './htdocs'
+project_dir: './projects'
